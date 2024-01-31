@@ -1,0 +1,10 @@
+<h1>Viewing Party: Discover Movies</h1>
+<br>
+<div class="discover-container">
+  <%= button_to 'Discover Top Rated Movies', user_movies_path(user_id: @user.id, q: 'top rated'), method: :get %><br>
+  <%= form_with url: user_movies_path(@user), method: :get, data: {turbo: false}, local: true do |form| %>
+    <%= form.label :search_keywords, 'Search by Movie Title:' %>
+    <%= form.text_field :search_keywords %>
+    <%= form.submit 'Search', class: 'btn btn-secondary' %>
+  <% end %>
+</div>
