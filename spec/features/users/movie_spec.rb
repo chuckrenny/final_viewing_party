@@ -6,30 +6,35 @@ RSpec.describe 'Movie Results Page', type: :feature do
     @user2 = User.create!(name: 'Sam', email: 'sam@email.com')
 
     visit user_discover_path(@user2)
-    click_button('Discover Top Rated Movies')
   end
 
-  # When I visit the discover movies page ('/users/:id/discover'),
-  # and click on either the Discover Top Rated Movies button or fill out the movie title search and click the Search button,
-  # I should be taken to the movies results page (`users/:user_id/movies`) where I see: 
-
-  # - Title (As a Link to the Movie Details page (see story #3))
-  # - Vote Average of the movie
-
-  # I should also see a button to return to the Discover Page.
-  # Notes:
-
-  # There should only be a maximum of 20 results. The above details should be listed for each movie.
   it 'displays a button to return to discover page' do
-    expect(current_path).to eq(user_movies_path(@user2))
-    click_button('Discover Page')
-    expect(current_path).to eq(user_discover_path(@user2))
+    VCR.use_cassette("top_20_rated_movies") do
+      click_link('Discover Top Rated Movies')
+      expect(current_path).to eq(user_movies_path(@user2))
+      expect(page).to have_content('Top 20 Movies')
+      click_button('Discover Page')
+      expect(current_path).to eq(user_discover_path(@user2))
+    end
   end
 
   it 'displays the top 20 movies when clicking Discover Top Rated Movies button' do
-    expect(current_path).to be(user_movies_path(@user2))
-    expect(page).to have_content('Viewing Party: Top 20 Movies')
+    VCR.use_cassette("top_20_rated_movies") do
+      click_link('Discover Top Rated Movies')
+      expect(current_path).to eq(user_movies_path(@user2))
+      expect(page).to have_content("The Shawshank Redemption")
+    end
+  end
 
-    
+  it 'displays the search results when searching by movie title' do
+    VCR.use_cassette("search_results_for_The_Batman_Movie", record: :new_episodes) do
+      fill_in :search_keywords, with: 'The Batman'
+      click_button('Search')
+      expect(current_path).to eq(user_movies_path(@user2))
+      expect(page).to have_content('Movie Search')
+      expect(page).to have_content('The Batman')
+      expect(page).to have_content('Rating: 7.7')
+      save_and_open_page
+    end
   end
 end

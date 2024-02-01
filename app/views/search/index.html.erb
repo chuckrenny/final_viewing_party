@@ -1,8 +1,0 @@
-<h1>Viewing Party: Top 20 Movies</h1>
-<br>
-<%= button_to 'Discover Page', user_discover_path(@user), method: :get %><br>
-<% @facade.movies.each do |movie| %>
-  <ul class="movie">
-    <li class="name"><%= link_to movie[:name] %></li> <li class="rating"><%= movie[:rating] %></li>
-  </ul>
-<% end %>

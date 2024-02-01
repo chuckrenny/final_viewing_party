@@ -1,9 +1,9 @@
 class Movie
-  attr_reader :title, :rating
+  attr_reader :title, :rating, :language
 
   def initialize(data)
-    require 'pry';binding.pry
-    @title = data[:title]
-    @rating = data[:rating]
+    @title = data[:original_title]
+    @rating = data[:vote_average]
+    @language = data[:original_language]
   end
 end

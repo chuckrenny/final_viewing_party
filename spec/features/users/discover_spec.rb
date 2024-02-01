@@ -9,7 +9,7 @@ RSpec.describe 'Discover movies page', type: :feature do
   end
 
   it "shows the 'Discover Top Rated Movies' button" do
-    expect(page).to have_button('Discover Top Rated Movies')
+    expect(page).to have_link('Discover Top Rated Movies')
   end
 
   it 'has a text field to enter search keywords' do
