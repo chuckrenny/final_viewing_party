@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# US 3
 RSpec.describe 'Movie Details Page' do
   before(:each) do
     @user1 = User.create!(name: 'Tommy', email: 'tommy@email.com')

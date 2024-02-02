@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
   def show
     # require 'pry';binding.pry
     @user = User.find(params[:user_id])
-
     @movie = MovieFacade.new.movie_details(params[:movie_id])
     @cast = MovieFacade.new.cast(params[:movie_id])
     @reviews = MovieFacade.new.reviews(params[:movie_id])

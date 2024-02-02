@@ -4,4 +4,9 @@ class User < ApplicationRecord
 
    has_many :user_parties
    has_many :viewing_parties, through: :user_parties
+
+   # @return all OTHER users in the database
+  def friends
+    User.where.not(id: id)
+  end
 end
