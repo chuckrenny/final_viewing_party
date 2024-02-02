@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# US 1
 RSpec.describe 'Discover movies page', type: :feature do
   before(:each) do
     @user1 = User.create!(name: 'Tommy', email: 'tommy@email.com')

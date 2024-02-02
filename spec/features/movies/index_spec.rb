@@ -1,5 +1,6 @@
 require 'rails_helper' # rubocop:disable Style/FrozenStringLiteralComment
 
+# US 2
 RSpec.describe 'Movie Results Page', type: :feature do # rubocop:disable Metrics/BlockLength
   before(:each) do
     @user1 = User.create!(name: 'Tommy', email: 'tommy@email.com')
