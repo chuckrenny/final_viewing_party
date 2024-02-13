@@ -1,19 +1,23 @@
-<h1><%= "#{@user.name}'s Dashboard" %></h1><br>
-<h4>Location: <%= cookies[:location] %>
+<% if session[:user_id] %>
+  <h1><%= "#{@user.name}'s Dashboard" %></h1><br>
+  <h4>Location: <%= cookies[:location] %>
 
-<section class="viewing_parties">
-  <% @user.viewing_parties.each do |party| %>
-    <div class="viewing_party">
-         Party Time: <%= party.date %> at <%= party.start_time %><br>
-         Host: <%= party.find_host.name %><br>
-         Who's Coming? <br/>
-
-         <ol>
-            <% party.users.each do |attendee| %>
-               <li><%= attendee.name %> </li>
-            <% end %>
-         </ol>
-
-    </div><br>
-  <% end %>
-</section>
+  <section class="viewing_parties">
+    <% @user.viewing_parties.each do |party| %>
+      <div class="viewing_party">
+          Party Time: <%= party.date %> at <%= party.start_time %><br>
+          Host: <%= party.find_host.name %><br>
+          Who's Coming? <br/>
+          <ol>
+              <% party.users.each do |attendee| %>
+                <li><%= attendee.name %> </li>
+              <% end %>
+          </ol>
+      </div><br>
+    <% end %>
+  </section>
+<% else %>
+  <h3> Please Log in or Register to access a dashboard</h3>
+  <%= button_to 'Create New User', register_user_path, method: :get, class: "btn btn-lg btn-outline-secondary" %><br>
+  <%= button_to 'Log In', login_path, method: :get, class: "btn btn-lg btn-outline-secondary" %><br>
+<% end %>
