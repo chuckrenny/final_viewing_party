@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/login', to: 'users#login_form'
   post '/login', to: 'users#login_user'
 
+  get '/logout', to: 'users#logout'
+
   resources :users, only: [:show, :create] do
     get '/movies', to: 'movies#index', as: 'movies' #user_movies_path
   end
